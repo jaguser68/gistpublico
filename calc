@@ -1,0 +1,184 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: CalculatorApp(),
+  ));
+}
+
+class CalculatorApp extends StatefulWidget {
+  @override
+  CalcButton createState() => CalcButton();
+}
+
+class CalcButton extends State<CalculatorApp> {
+  final txtEntrada = TextEditingController();
+  //final txtResultado = TextEditingController();
+  //double operand1 = 0.0;
+  double operand2 = 0.0;
+  dynamic a,b,c,d,e="0";
+  String operation;
+  String calculation = "0";
+  List<dynamic> lista1=[];
+  List<String> lista2;
+
+  void onPressOfButton(String text) {
+    {
+     if(text=="0"||text=="1"||text=="2"||text=="3"
+        //||text=="4"||text=="5"||text=="6"||text=="7"
+        ||text=="8"||text=="9"||text=="0")
+       a=text;
+      print('a= $a');
+           if(text=="%"||text=="-"||text=="+"||text=="*"){
+       b=text;
+            print('b= $b');
+           }
+             if(//text=="0"||text=="1"||text=="2"||text=="3"
+        text=="4"||text=="5"||text=="6"||text=="7")
+        //||text=="8"||text=="9"||text=="0")
+       c=text;
+             print('c= $c');
+
+     setState(() {
+           calculation = a+b+c;
+    });
+    }
+    setState(() {
+           calculation = d;
+    });
+    //Por hacer
+    {if (text=="1")
+      a=text;
+     if (text=='+')
+      b=text;
+     if (text=='2')
+      c=text;
+     if (text=='=')
+       d=a+b+c;
+     
+     if (text=='C'){
+       a="0";
+     c="0";
+     }
+     setState(() {
+       int sum = int.parse(a) + int.parse(c);
+                    e = sum.toString();
+      calculation = e;
+    });
+    }
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(16),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(calculation, style: TextStyle(fontSize: 30)),
+                )),
+            //Row1
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ComponenteBoton(text: "7", callback: (){
+                    onPressOfButton("7");
+                  }),
+                  ComponenteBoton(text: "8", callback: (){
+                    onPressOfButton("8");
+                  }),
+                  ComponenteBoton(text: "9", callback: (){
+                    onPressOfButton("9");
+                  }),
+                  ComponenteBoton(text: "%", callback: (){
+                    onPressOfButton("%");
+                  })
+
+                ]),
+            //Row2
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ComponenteBoton(text: "4", callback: (){
+                    onPressOfButton("4");
+                  }),
+                  ComponenteBoton(text: "5", callback: (){
+                    onPressOfButton("5");
+                  }),
+                  ComponenteBoton(text: "6", callback: (){
+                    onPressOfButton("6");
+                  }),
+                  ComponenteBoton(text: "+", callback: (){
+                    onPressOfButton("+");
+                  })
+
+                ]),
+            //Row3
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ComponenteBoton(text: "1", callback: (){
+                    onPressOfButton("1");
+                  }),
+                  ComponenteBoton(text: "2", callback: (){
+                    onPressOfButton("2");
+                  }),
+                  ComponenteBoton(text: "3", callback: (){
+                    onPressOfButton("3");
+                  }),
+                  ComponenteBoton(text: "-", callback: (){
+                    onPressOfButton("-");
+                  })
+
+                ]),
+            //Row4
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ComponenteBoton(text: "C", callback: (){
+                    onPressOfButton("C");
+                  }),
+                  ComponenteBoton(text: "0", callback: (){
+                    onPressOfButton("0");
+                  }),
+                  ComponenteBoton(text: "=", callback: (){
+                    onPressOfButton("=");
+                  }),
+                  ComponenteBoton(text: "*", callback: (){
+                    onPressOfButton("*");
+                  })
+
+                ])
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+class ComponenteBoton extends StatelessWidget {
+  final Function callback;
+  final String text;
+  const ComponenteBoton({Key key,@required this.text, @required this.callback}): super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+          padding: EdgeInsets.all(2.0),
+          child: RaisedButton(
+            child: Text(
+              this.text,
+              style: TextStyle(color: Colors.white),
+            ),
+            color: Colors.red,
+            onPressed: callback,
+          ));
+  }
+}
